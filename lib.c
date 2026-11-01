@@ -10,7 +10,7 @@ int cptmot(char const *str)
 {
     int i = 0;
     int cpt = 0;
-    for (i; str[i] != '\0'; i++) {
+    for (; str[i] != '\0'; i++) {
         if (str[i + 1] == '\n' || str[i + 1] == '\0')
             cpt++;
     }
@@ -21,7 +21,7 @@ int lentotal(char const *str)
 {
     int i = 0;
     int cpt = 0;
-    for (i; str[i] != '\0'; i++) {
+    for (; str[i] != '\0'; i++) {
         if (str[i] != '\n')
             cpt++;
     }

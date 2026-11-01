@@ -13,6 +13,7 @@ SRC	=	openf.c\
 		deplacement.c\
 		box.c\
 		if.c\
+		display.c\
 
 NAME	=	my_sokoban
 
@@ -21,7 +22,7 @@ INCLUDE	=	-I include/
 all:	$(NAME)
 
 $(NAME):
-	gcc -g -lncurses -o $(NAME) $(SRC)
+	gcc -g -o $(NAME) $(SRC) -lncurses
 	make clean
 
 clean:

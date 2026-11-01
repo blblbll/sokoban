@@ -13,6 +13,7 @@
     #include <sys/stat.h>
     #include <unistd.h>
     #include <stddef.h>
+    #include <stdio.h>
 struct poz{
     int i;
     int j;
@@ -33,6 +34,9 @@ char *fs_open_file(const char *pathfile);
 char **my_str_to_word_array(char const *str);
 int my_strlen(char const *str);
 int collen(char **map);
+void my_fail(char *msg);
+void free_map(char **map);
+void reload_map(struct maps *mymap, char *prec);
 
 int cptmot(char const *str);
 int lentotal(char const *str);
@@ -50,6 +54,8 @@ char getubox(char **vmap, int i, int j);
 int isbox(struct maps *mymap, struct poz py, char *prec, struct offset coord);
 
 struct poz getpoz(char **map);
+void init_display(void);
+void displaymap(char **map, char **van, int won);
 
 int ifwin(struct maps mymap);
 int ifwin2(struct maps mymap, int i);

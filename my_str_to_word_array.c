@@ -7,41 +7,48 @@
 
 #include "./include/my.h"
 
-int lenmot(char const *str, int j)
+static int nb_lines(char const *str)
 {
-    int cpt = 0;
-    while (j < my_strlen(str) && str[j] != '\n') {
-        j++;
-        cpt++;
+    int count = 0;
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '\n')
+            count++;
+        else if (str[i + 1] == '\0')
+            count++;
     }
-    return cpt;
+    return count;
 }
 
-void getmot(char const *str, char **result, int e, int *j)
+static int row_len(char const *str)
 {
-    int a = 0;
-    for (*j; str[*j] != '\n'; *j = *j + 1) {
-        result[e][a] = str[*j];
-        a++;
-    }
-    result[e][a] = '\0';
-    *j = *j + 1;
-    return;
+    int len = 0;
+
+    while (str[len] != '\0' && str[len] != '\n')
+        len++;
+    return len;
 }
 
 char **my_str_to_word_array(char const *str)
 {
+    char **result = malloc(sizeof(char *) * (nb_lines(str) + 1));
     int e = 0;
-    char **result;
-    int len_phrase = lentotal(str);
-    int a = cptmot(str);
-    result = malloc(sizeof(char *) * (len_phrase + 1));
-    for (int i = 0; i < a; i++) {
-        result[i] = malloc(sizeof(char) * my_lenligne(str) + 1);
-    }
-    int j = 0;
-    for (e; e < a - 1; e++) {
-        getmot(str, result, e, &j);
+    int len = 0;
+
+    if (result == NULL)
+        my_fail("memory allocation failed");
+    while (*str != '\0') {
+        len = row_len(str);
+        result[e] = malloc(sizeof(char) * (len + 1));
+        if (result[e] == NULL)
+            my_fail("memory allocation failed");
+        for (int i = 0; i < len; i++)
+            result[e][i] = str[i];
+        result[e][len] = '\0';
+        e++;
+        str += len;
+        if (*str == '\n')
+            str++;
     }
     result[e] = NULL;
     return result;

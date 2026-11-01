@@ -76,6 +76,16 @@ void deplacerbas(struct maps *mymap, struct poz player, char *prec)
     }
 }
 
+void reload_map(struct maps *mymap, char *prec)
+{
+    char *tmp = fs_open_file(mymap->name);
+
+    free_map(mymap->map);
+    mymap->map = my_str_to_word_array(tmp);
+    free(tmp);
+    *prec = ' ';
+}
+
 void deplacer(struct maps *mymap, char *prec)
 {
     struct poz player = getpoz(mymap->map);
@@ -88,8 +98,6 @@ void deplacer(struct maps *mymap, char *prec)
         deplacerhaut(mymap, player, prec);
     if (key == KEY_DOWN)
         deplacerbas(mymap, player, prec);
-    if (key == ' ') {
-        char *tmp = fs_open_file(mymap->name);
-        mymap->map = my_str_to_word_array(tmp);
-    }
+    if (key == ' ')
+        reload_map(mymap, prec);
 }
